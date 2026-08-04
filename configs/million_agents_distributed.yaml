@@ -1,0 +1,64 @@
+name: million-distinct-agents-mapreduce
+seeds: [100, 101, 102]
+output_dir: results/million_agents_distributed
+warmup_agents: 0
+repetitions: 1
+generator:
+  n_agents: 1000000
+  n_resources: 4
+  n_clusters: 8
+  seed: 100
+  pattern: correlated_bursts
+  duration_mode: unit
+  duration_mean: 1.0
+  duration_sigma: 0.35
+  dominant_low: 96.0
+  dominant_high: 132.0
+  background_low: 6.0
+  background_high: 13.0
+  jitter_sigma: 0.14
+  burst_concentration: 60.0
+  dtype: float32
+provider:
+  capacities: [3000000.0, 3000000.0, 3000000.0, 3000000.0]
+  resource_names: [cpu, memory, network, accelerator]
+  name: million-agent-provider
+scheduler:
+  methods: [mp, omp, ols, fista, irls]
+  fifo_window: 65536
+  strict_fifo: false
+  objective: makespan
+  adaptive_sample_size: 50000
+  adaptive_threshold: 0.1
+  adaptive_seed: 0
+  candidate:
+    pool_size: 65536
+    chunk_size: 131072
+    local_top_k: 16384
+    direction_budget: 12
+    direction_pool_size: 2048
+    refill_rounds: 4
+    score_epsilon: 1.0e-12
+    deterministic: true
+  solver:
+    max_iterations: 64
+    tolerance: 1.0e-6
+    l1_lambda: 0.025
+    irls_p: 0.5
+    irls_epsilon: 0.001
+    irls_outer_iterations: 8
+    irls_inner_iterations: 32
+    positive: true
+    normalize_columns: true
+simulation:
+  mode: waves
+  record_trace: false
+  validate_every_dispatch: true
+  max_dispatches: null
+  event_tolerance: 1.0e-10
+distributed:
+  backend: process
+  workers: 8
+  start_method: spawn
+  shard_size: 131072
+  temp_dir: null
