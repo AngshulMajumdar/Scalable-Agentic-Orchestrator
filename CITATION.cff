@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it using the metadata below."
+title: "Scalable Agentic Orchestrator"
+type: software
+version: 0.1.0
+date-released: 2026-08-03
+authors:
+  - family-names: Majumdar
+    given-names: Angshul
+    affiliation: "Indraprastha Institute of Information Technology Delhi"
+repository-code: "https://github.com/AngshulMajumdar/Scalable-Agentic-Orchestrator"
+license: Apache-2.0
+abstract: >-
+  Resource-aware sparse scheduling for one million explicit heterogeneous agents,
+  with MP, OMP, OLS, FISTA, IRLS, adaptive gating, deterministic MapReduce
+  candidate retrieval, exact feasibility packing, and reproducible simulation.
